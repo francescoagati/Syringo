@@ -1,0 +1,10 @@
+-main Main
+-php www
+-cmd php www/index.php
+--next
+-neko Main.n
+-main Main
+-cmd neko Main.n
+--next
+-js Main.js
+-main Main
