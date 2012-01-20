@@ -8,6 +8,7 @@ class TestClass {
 	public $title;
 	public $collection;
 	public $user;
+	public $summer;
 	public function __call($m, $a) {
 		if(isset($this->$m) && is_callable($this->$m))
 			return call_user_func_array($this->$m, $a);
@@ -22,4 +23,4 @@ class TestClass {
 	static $__meta__;
 	function __toString() { return 'TestClass'; }
 }
-TestClass::$__meta__ = _hx_anonymous(array("fields" => _hx_anonymous(array("title" => _hx_anonymous(array("inject" => new _hx_array(array("title")))), "collection" => _hx_anonymous(array("inject" => new _hx_array(array("list")))), "user" => _hx_anonymous(array("inject" => new _hx_array(array("person"))))))));
+TestClass::$__meta__ = _hx_anonymous(array("fields" => _hx_anonymous(array("title" => _hx_anonymous(array("inject" => new _hx_array(array("title")))), "collection" => _hx_anonymous(array("inject" => new _hx_array(array("list")))), "user" => _hx_anonymous(array("inject" => new _hx_array(array("person")))), "summer" => _hx_anonymous(array("inject" => new _hx_array(array("summer"))))))));
