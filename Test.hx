@@ -14,8 +14,8 @@ class TestClass {
   @inject("person")
   public var user:Person;
   
-  @inject("summer")
-  public var summer:Float->Float->Float;
+  @inject("sum")
+  public var sum:Float->Float->Float;
   
   public function new(container:syringo.Container) {
     syringo.Injector.injectByAnnotation(this,container);
@@ -47,7 +47,7 @@ class Test extends haxe.unit.TestCase {
         });
           
         //define a function in container
-        container.set("summer",function(cont) {
+        container.set("sum",function(cont) {
           return function (a,b) {
             return a+b;
           };
@@ -62,7 +62,7 @@ class Test extends haxe.unit.TestCase {
       assertEquals( container.get("person").name, "Mario" );
       
       //inject a function and exec it
-      assertEquals( container.get("summer")(1,1), 2);
+      assertEquals( container.get("sum")(1,1), 2);
       
     }
     
@@ -72,7 +72,7 @@ class Test extends haxe.unit.TestCase {
       assertEquals(object.user.name,"Mario");
       assertEquals(object.collection.length,3);
       
-      assertEquals(object.summer(1,1),2);
+      assertEquals(object.sum(1,1),2);
       
     }
     

@@ -11,20 +11,20 @@ class Test extends haxe_unit_TestCase {
 		$this->container->setObject("title", "titolo");
 		$this->container->set("list", array(new _hx_lambda(array(), "Test_0"), 'execute'));
 		$this->container->set("person", array(new _hx_lambda(array(), "Test_1"), 'execute'));
-		$this->container->set("summer", array(new _hx_lambda(array(), "Test_2"), 'execute'));
+		$this->container->set("sum", array(new _hx_lambda(array(), "Test_2"), 'execute'));
 	}
 	public function testContainerValues() {
 		$this->assertEquals($this->container->get("title"), "titolo", _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 60, "className" => "Test", "methodName" => "testContainerValues")));
 		$this->assertEquals(_hx_len($this->container->get("list")), 3, _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 61, "className" => "Test", "methodName" => "testContainerValues")));
 		$this->assertEquals($this->container->get("person")->name, "Mario", _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 62, "className" => "Test", "methodName" => "testContainerValues")));
-		$this->assertEquals(call_user_func_array($this->container->get("summer"), array(1, 1)), 2, _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 65, "className" => "Test", "methodName" => "testContainerValues")));
+		$this->assertEquals(call_user_func_array($this->container->get("sum"), array(1, 1)), 2, _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 65, "className" => "Test", "methodName" => "testContainerValues")));
 	}
 	public function testAnnotationValues() {
 		$object = new TestClass($this->container);
 		$this->assertEquals($object->title, "titolo", _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 71, "className" => "Test", "methodName" => "testAnnotationValues")));
 		$this->assertEquals($object->user->name, "Mario", _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 72, "className" => "Test", "methodName" => "testAnnotationValues")));
 		$this->assertEquals($object->collection->length, 3, _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 73, "className" => "Test", "methodName" => "testAnnotationValues")));
-		$this->assertEquals($object->summer(1, 1), 2, _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 75, "className" => "Test", "methodName" => "testAnnotationValues")));
+		$this->assertEquals($object->sum(1, 1), 2, _hx_anonymous(array("fileName" => "Test.hx", "lineNumber" => 75, "className" => "Test", "methodName" => "testAnnotationValues")));
 	}
 	public function __call($m, $a) {
 		if(isset($this->$m) && is_callable($this->$m))
