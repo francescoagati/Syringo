@@ -8,6 +8,7 @@ TestClass.prototype.title = null;
 TestClass.prototype.collection = null;
 TestClass.prototype.user = null;
 TestClass.prototype.sum = null;
+TestClass.prototype.sum10 = null;
 TestClass.prototype.__class__ = TestClass;
 if(typeof haxe=='undefined') haxe = {}
 haxe.Public = function() { }
@@ -80,19 +81,27 @@ Test.prototype.setup = function() {
 			return a + b;
 		};
 	});
+	this.container.set("sum10",function(cont) {
+		var accumulator = 10;
+		return function(a) {
+			return accumulator + a;
+		};
+	});
 }
 Test.prototype.testContainerValues = function() {
-	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 60, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 61, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 62, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 65, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 71, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 72, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 73, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 76, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum10"))(100),110,{ fileName : "Test.hx", lineNumber : 79, className : "Test", methodName : "testContainerValues"});
 }
 Test.prototype.testAnnotationValues = function() {
 	var object = new TestClass(this.container);
-	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 71, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 72, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 73, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 75, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 86, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 87, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 88, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 90, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 91, className : "Test", methodName : "testAnnotationValues"});
 }
 Test.prototype.__class__ = Test;
 haxe.StackItem = { __ename__ : ["haxe","StackItem"], __constructs__ : ["CFunction","Module","FilePos","Method","Lambda"] }
@@ -1348,6 +1357,6 @@ js.Boot.__init();
 		return f(msg,[url+":"+line]);
 	}
 }
-TestClass.__meta__ = { fields : { title : { inject : ["title"]}, collection : { inject : ["list"]}, user : { inject : ["person"]}, sum : { inject : ["sum"]}}};
+TestClass.__meta__ = { fields : { title : { inject : ["title"]}, collection : { inject : ["list"]}, user : { inject : ["person"]}, sum : { inject : ["sum"]}, sum10 : { inject : ["sum10"]}}};
 js.Lib.onerror = null;
 Main.main()

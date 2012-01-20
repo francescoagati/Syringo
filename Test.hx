@@ -16,6 +16,10 @@ class TestClass {
   
   @inject("sum")
   public var sum:Float->Float->Float;
+
+  @inject("sum10")
+  public var sum10:Float->Float;
+  
   
   public function new(container:syringo.Container) {
     syringo.Injector.injectByAnnotation(this,container);
@@ -53,6 +57,13 @@ class Test extends haxe.unit.TestCase {
           };
         });
           
+        //define a function with closure
+        container.set("sum10",function(cont) {
+          var accumulator:Int=10;
+          return function(a) {
+            return accumulator+a;
+          };
+        });
           
       }
   
@@ -64,6 +75,10 @@ class Test extends haxe.unit.TestCase {
       //inject a function and exec it
       assertEquals( container.get("sum")(1,1), 2);
       
+      //inject a function with closure and exec it
+      assertEquals( container.get("sum10")(100), 110);
+      
+      
     }
     
     public function testAnnotationValues() {
@@ -73,7 +88,7 @@ class Test extends haxe.unit.TestCase {
       assertEquals(object.collection.length,3);
       
       assertEquals(object.sum(1,1),2);
-      
+      assertEquals(object.sum10(100),110);
     }
     
 }
