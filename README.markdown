@@ -4,7 +4,8 @@ Use lambda function for define dependency and annotations for inject it.
 
 
 use annotation inject for define dependency
-`
+
+```
 
 class TestClass {
   
@@ -23,11 +24,11 @@ class TestClass {
   
 }
 
-`
+```
 
 define an object container 
 
-`
+```
         container=new syringo.Container();
         container.setObject("title", "titolo");
         container.set("list",function(cont) {
@@ -46,7 +47,7 @@ define an object container
         });
   
 
-`
+```
 
 
 and inject container
