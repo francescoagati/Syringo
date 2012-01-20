@@ -36,15 +36,12 @@ class Container {
     
     var service=services.get(name);
     var object:Dynamic;
-    if (service.cached) {
-      object=service.object;
-    } else {
-      object=service.generator(this);
-      service.object=object;
+    if (service.cached==false) {
+      service.object=service.generator(this);
       service.cached=true;
     }
     
-    return object;
+    return service.object;
     
   }
   

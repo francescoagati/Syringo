@@ -64,6 +64,7 @@ class Test extends haxe.unit.TestCase {
             return accumulator+a;
           };
         });
+        
           
       }
   
@@ -77,12 +78,21 @@ class Test extends haxe.unit.TestCase {
       
       //inject a function with closure and exec it
       assertEquals( container.get("sum10")(100), 110);
+            
+    }
+    
+    
+    public function testCheckCacheCallOnlyOne() {
       
-      
+      var list:Array<String>=container.get("list");
+      assertEquals( container.get("list").length, 3 );
+      container.get("list").push("ciao");
+      assertEquals( container.get("list").length, 4 );
     }
     
     public function testAnnotationValues() {
       var object=new TestClass(container);
+      
       assertEquals(object.title,"titolo");
       assertEquals(object.user.name,"Mario");
       assertEquals(object.collection.length,3);

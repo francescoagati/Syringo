@@ -89,19 +89,25 @@ Test.prototype.setup = function() {
 	});
 }
 Test.prototype.testContainerValues = function() {
-	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 71, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 72, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 73, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 76, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals((this.container.get("sum10"))(100),110,{ fileName : "Test.hx", lineNumber : 79, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 72, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 73, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 74, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 77, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum10"))(100),110,{ fileName : "Test.hx", lineNumber : 80, className : "Test", methodName : "testContainerValues"});
+}
+Test.prototype.testCheckCacheCallOnlyOne = function() {
+	var list = this.container.get("list");
+	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 88, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
+	this.container.get("list").push("ciao");
+	this.assertEquals(this.container.get("list").length,4,{ fileName : "Test.hx", lineNumber : 90, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
 }
 Test.prototype.testAnnotationValues = function() {
 	var object = new TestClass(this.container);
-	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 86, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 87, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 88, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 90, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 91, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 96, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 97, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 98, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 100, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 101, className : "Test", methodName : "testAnnotationValues"});
 }
 Test.prototype.__class__ = Test;
 haxe.StackItem = { __ename__ : ["haxe","StackItem"], __constructs__ : ["CFunction","Module","FilePos","Method","Lambda"] }
@@ -479,12 +485,11 @@ syringo.Container.prototype.set = function(name,generator) {
 syringo.Container.prototype.get = function(name) {
 	var service = this.services.get(name);
 	var object;
-	if(service.cached) object = service.object; else {
-		object = service.generator(this);
-		service.object = object;
+	if(service.cached == false) {
+		service.object = service.generator(this);
 		service.cached = true;
 	}
-	return object;
+	return service.object;
 }
 syringo.Container.prototype.__class__ = syringo.Container;
 IntIter = function(min,max) {

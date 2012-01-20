@@ -17,14 +17,11 @@ class syringo_Container {
 	public function get($name) {
 		$service = $this->services->get($name);
 		$object = null;
-		if($service->cached) {
-			$object = $service->object;
-		} else {
-			$object = $service->generator($this);
-			$service->object = $object;
+		if($service->cached === false) {
+			$service->object = $service->generator($this);
 			$service->cached = true;
 		}
-		return $object;
+		return $service->object;
 	}
 	public function __call($m, $a) {
 		if(isset($this->$m) && is_callable($this->$m))
