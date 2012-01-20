@@ -15,7 +15,7 @@ class TestClass {
   public var user:Person;
   
   @inject("summer")
-  public var summer:Dynamic;
+  public var summer:Float->Float->Float;
   
   public function new(container:syringo.Container) {
     syringo.Injector.injectByAnnotation(this,container);
