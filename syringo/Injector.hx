@@ -1,9 +1,8 @@
 package syringo;
 
 using Lambda; 
-using Reflect;
 using haxe.rtti.Meta;
-using Type;
+using Reflect;
 
 class Injector {
   
@@ -11,13 +10,13 @@ class Injector {
     var cls:Class<Dynamic>=Type.getClass(object);
     var flds:Dynamic=cls.getFields();
     
-    
+  
     flds.fields().foreach(function(prop) {
       
       var obj:Dynamic=flds.field(prop);
       
       if (obj.hasField("inject")) {
-        var field:String=obj.inject[0];
+        var field=obj.inject[0];
         object.setField(prop, container.get(field));
       }
       
