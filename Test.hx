@@ -44,6 +44,14 @@ class Test extends haxe.unit.TestCase {
     
     var container: syringo.Container;
 
+      public function checkObjectTest(object:Dynamic) {        
+          assertEquals(object.title,"titolo");
+          assertEquals(object.user.name,"Mario");
+          assertEquals(object.collection.length,3);  
+          assertEquals(object.sum(1,1),2);
+          assertEquals(object.sum10(100),110);
+      }
+
       override public function setup() {
           
         container=new syringo.Container();
@@ -113,13 +121,7 @@ class Test extends haxe.unit.TestCase {
     
     public function testAnnotationValues() {
       var object=new TestClassAnnotations(container);
-      
-      assertEquals(object.title,"titolo");
-      assertEquals(object.user.name,"Mario");
-      assertEquals(object.collection.length,3);
-      
-      assertEquals(object.sum(1,1),2);
-      assertEquals(object.sum10(100),110);
+      checkObjectTest(object);
     }
     
     public function testListValues() {
@@ -131,12 +133,8 @@ class Test extends haxe.unit.TestCase {
         ['sum','sum'],
         ['sum10','sum10']
       ]);
-      
-      assertEquals(object.title,"titolo");
-      assertEquals(object.user.name,"Mario");
-      assertEquals(object.collection.length,3);
-      assertEquals(object.sum(1,1),2);
-      assertEquals(object.sum10(100),110);
+        
+      checkObjectTest(object);
      
     }
     

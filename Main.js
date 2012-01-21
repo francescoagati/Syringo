@@ -72,6 +72,13 @@ Test.__name__ = ["Test"];
 Test.__super__ = haxe.unit.TestCase;
 for(var k in haxe.unit.TestCase.prototype ) Test.prototype[k] = haxe.unit.TestCase.prototype[k];
 Test.prototype.container = null;
+Test.prototype.checkObjectTest = function(object) {
+	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 48, className : "Test", methodName : "checkObjectTest"});
+	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 49, className : "Test", methodName : "checkObjectTest"});
+	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 50, className : "Test", methodName : "checkObjectTest"});
+	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 51, className : "Test", methodName : "checkObjectTest"});
+	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 52, className : "Test", methodName : "checkObjectTest"});
+}
 Test.prototype.setup = function() {
 	this.container = new syringo.Container();
 	this.container.setObject("title","titolo");
@@ -98,40 +105,32 @@ Test.prototype.setup = function() {
 	});
 }
 Test.prototype.testContainerValues = function() {
-	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 85, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 86, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 87, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 90, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals((this.container.get("sum10"))(100),110,{ fileName : "Test.hx", lineNumber : 93, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 93, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 94, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 95, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 98, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum10"))(100),110,{ fileName : "Test.hx", lineNumber : 101, className : "Test", methodName : "testContainerValues"});
 }
 Test.prototype.testCheckCacheCallOnlyOne = function() {
 	var list = this.container.get("list");
-	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 101, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
+	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 109, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
 	this.container.get("list").push("ciao");
-	this.assertEquals(this.container.get("list").length,4,{ fileName : "Test.hx", lineNumber : 103, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
+	this.assertEquals(this.container.get("list").length,4,{ fileName : "Test.hx", lineNumber : 111, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
 }
 Test.prototype.testWithoutCache = function() {
 	var list = this.container.getWithoutCache("list");
-	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 109, className : "Test", methodName : "testWithoutCache"});
+	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 117, className : "Test", methodName : "testWithoutCache"});
 	this.container.getWithoutCache("list").push("ciao");
-	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 111, className : "Test", methodName : "testWithoutCache"});
+	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 119, className : "Test", methodName : "testWithoutCache"});
 }
 Test.prototype.testAnnotationValues = function() {
 	var object = new TestClassAnnotations(this.container);
-	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 117, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 118, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 119, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 121, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 122, className : "Test", methodName : "testAnnotationValues"});
+	this.checkObjectTest(object);
 }
 Test.prototype.testListValues = function() {
 	var object = new TestClassList();
 	syringo.Injector.injectByList(object,this.container,[["title","title"],["collection","list"],["user","person"],["sum","sum"],["sum10","sum10"]]);
-	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 135, className : "Test", methodName : "testListValues"});
-	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 136, className : "Test", methodName : "testListValues"});
-	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 137, className : "Test", methodName : "testListValues"});
-	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 138, className : "Test", methodName : "testListValues"});
-	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 139, className : "Test", methodName : "testListValues"});
+	this.checkObjectTest(object);
 }
 Test.prototype.__class__ = Test;
 haxe.StackItem = { __ename__ : ["haxe","StackItem"], __constructs__ : ["CFunction","Module","FilePos","Method","Lambda"] }
