@@ -1,4 +1,4 @@
-A dependeny injection inspired by pimple and syringe.
+A dependeny injection inspired by [pimple](http://pimple.sensiolabs.org) and [syringe](https://github.com/leandrosilva/syringe).
 
 Use lambda function for define dependency and annotations for inject it.
 
