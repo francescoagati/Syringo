@@ -8,15 +8,14 @@ class Injector {
   
   public static function injectByAnnotation(object:Dynamic,container:Container) {
     var cls:Class<Dynamic>=Type.getClass(object);
-    var flds:Dynamic=cls.getFields();
-    
+    var properties:Dynamic=cls.getFields();
   
-    flds.fields().foreach(function(prop) {
+    properties.fields().foreach(function(prop) {
       
-      var obj:Dynamic=flds.field(prop);
+      var annotation:Dynamic=properties.field(prop);
       
-      if (obj.hasField("inject")) {
-        var field=obj.inject[0];
+      if (annotation.hasField("inject")) {
+        var field=annotation.inject[0];
         object.setField(prop, container.get(field));
       }
       
