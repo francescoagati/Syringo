@@ -3,7 +3,21 @@ typedef Person={
   surname:String
 }
 
-class TestClass {
+class TestClassList{
+  
+  public var title:String;
+  public var collection:Array<String>;
+  public var user:Person;
+  public var sum:Float->Float->Float;
+  public var sum10:Float->Float;
+  
+  public function new() {}
+  
+  
+  
+}
+
+class TestClassAnnotations {
   
   @inject("title")
   public var title:String;
@@ -98,7 +112,7 @@ class Test extends haxe.unit.TestCase {
     }
     
     public function testAnnotationValues() {
-      var object=new TestClass(container);
+      var object=new TestClassAnnotations(container);
       
       assertEquals(object.title,"titolo");
       assertEquals(object.user.name,"Mario");
@@ -107,5 +121,24 @@ class Test extends haxe.unit.TestCase {
       assertEquals(object.sum(1,1),2);
       assertEquals(object.sum10(100),110);
     }
+    
+    public function testListValues() {
+      var object=new TestClassList();
+      syringo.Injector.injectByList(object, container, [
+        ['title','title'],
+        ['collection','list'],
+        ['user','person'],
+        ['sum','sum'],
+        ['sum10','sum10']
+      ]);
+      
+      assertEquals(object.title,"titolo");
+      assertEquals(object.user.name,"Mario");
+      assertEquals(object.collection.length,3);
+      assertEquals(object.sum(1,1),2);
+      assertEquals(object.sum10(100),110);
+     
+    }
+    
     
 }

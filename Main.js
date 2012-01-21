@@ -1,15 +1,24 @@
 $estr = function() { return js.Boot.__string_rec(this,''); }
-TestClass = function(container) {
+TestClassList = function(p) {
+}
+TestClassList.__name__ = ["TestClassList"];
+TestClassList.prototype.title = null;
+TestClassList.prototype.collection = null;
+TestClassList.prototype.user = null;
+TestClassList.prototype.sum = null;
+TestClassList.prototype.sum10 = null;
+TestClassList.prototype.__class__ = TestClassList;
+TestClassAnnotations = function(container) {
 	if( container === $_ ) return;
 	syringo.Injector.injectByAnnotation(this,container);
 }
-TestClass.__name__ = ["TestClass"];
-TestClass.prototype.title = null;
-TestClass.prototype.collection = null;
-TestClass.prototype.user = null;
-TestClass.prototype.sum = null;
-TestClass.prototype.sum10 = null;
-TestClass.prototype.__class__ = TestClass;
+TestClassAnnotations.__name__ = ["TestClassAnnotations"];
+TestClassAnnotations.prototype.title = null;
+TestClassAnnotations.prototype.collection = null;
+TestClassAnnotations.prototype.user = null;
+TestClassAnnotations.prototype.sum = null;
+TestClassAnnotations.prototype.sum10 = null;
+TestClassAnnotations.prototype.__class__ = TestClassAnnotations;
 if(typeof haxe=='undefined') haxe = {}
 haxe.Public = function() { }
 haxe.Public.__name__ = ["haxe","Public"];
@@ -89,31 +98,40 @@ Test.prototype.setup = function() {
 	});
 }
 Test.prototype.testContainerValues = function() {
-	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 71, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 72, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 73, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 76, className : "Test", methodName : "testContainerValues"});
-	this.assertEquals((this.container.get("sum10"))(100),110,{ fileName : "Test.hx", lineNumber : 79, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("title"),"titolo",{ fileName : "Test.hx", lineNumber : 85, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 86, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals(this.container.get("person").name,"Mario",{ fileName : "Test.hx", lineNumber : 87, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum"))(1,1),2,{ fileName : "Test.hx", lineNumber : 90, className : "Test", methodName : "testContainerValues"});
+	this.assertEquals((this.container.get("sum10"))(100),110,{ fileName : "Test.hx", lineNumber : 93, className : "Test", methodName : "testContainerValues"});
 }
 Test.prototype.testCheckCacheCallOnlyOne = function() {
 	var list = this.container.get("list");
-	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 87, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
+	this.assertEquals(this.container.get("list").length,3,{ fileName : "Test.hx", lineNumber : 101, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
 	this.container.get("list").push("ciao");
-	this.assertEquals(this.container.get("list").length,4,{ fileName : "Test.hx", lineNumber : 89, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
+	this.assertEquals(this.container.get("list").length,4,{ fileName : "Test.hx", lineNumber : 103, className : "Test", methodName : "testCheckCacheCallOnlyOne"});
 }
 Test.prototype.testWithoutCache = function() {
 	var list = this.container.getWithoutCache("list");
-	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 95, className : "Test", methodName : "testWithoutCache"});
+	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 109, className : "Test", methodName : "testWithoutCache"});
 	this.container.getWithoutCache("list").push("ciao");
-	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 97, className : "Test", methodName : "testWithoutCache"});
+	this.assertEquals(this.container.getWithoutCache("list").length,3,{ fileName : "Test.hx", lineNumber : 111, className : "Test", methodName : "testWithoutCache"});
 }
 Test.prototype.testAnnotationValues = function() {
-	var object = new TestClass(this.container);
-	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 103, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 104, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 105, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 107, className : "Test", methodName : "testAnnotationValues"});
-	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 108, className : "Test", methodName : "testAnnotationValues"});
+	var object = new TestClassAnnotations(this.container);
+	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 117, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 118, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 119, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 121, className : "Test", methodName : "testAnnotationValues"});
+	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 122, className : "Test", methodName : "testAnnotationValues"});
+}
+Test.prototype.testListValues = function() {
+	var object = new TestClassList();
+	syringo.Injector.injectByList(object,this.container,[["title","title"],["collection","list"],["user","person"],["sum","sum"],["sum10","sum10"]]);
+	this.assertEquals(object.title,"titolo",{ fileName : "Test.hx", lineNumber : 135, className : "Test", methodName : "testListValues"});
+	this.assertEquals(object.user.name,"Mario",{ fileName : "Test.hx", lineNumber : 136, className : "Test", methodName : "testListValues"});
+	this.assertEquals(object.collection.length,3,{ fileName : "Test.hx", lineNumber : 137, className : "Test", methodName : "testListValues"});
+	this.assertEquals(object.sum(1,1),2,{ fileName : "Test.hx", lineNumber : 138, className : "Test", methodName : "testListValues"});
+	this.assertEquals(object.sum10(100),110,{ fileName : "Test.hx", lineNumber : 139, className : "Test", methodName : "testListValues"});
 }
 Test.prototype.__class__ = Test;
 haxe.StackItem = { __ename__ : ["haxe","StackItem"], __constructs__ : ["CFunction","Module","FilePos","Method","Lambda"] }
@@ -453,6 +471,14 @@ syringo.Injector.injectByAnnotation = function(object,container) {
 		}
 		return true;
 	});
+}
+syringo.Injector.injectByList = function(object,container,injected) {
+	var _g = 0;
+	while(_g < injected.length) {
+		var el = injected[_g];
+		++_g;
+		object[el[0]] = container.get(el[1]);
+	}
 }
 syringo.Injector.prototype.__class__ = syringo.Injector;
 StringBuf = function(p) {
@@ -1371,6 +1397,6 @@ js.Boot.__init();
 		return f(msg,[url+":"+line]);
 	}
 }
-TestClass.__meta__ = { fields : { title : { inject : ["title"]}, collection : { inject : ["list"]}, user : { inject : ["person"]}, sum : { inject : ["sum"]}, sum10 : { inject : ["sum10"]}}};
+TestClassAnnotations.__meta__ = { fields : { title : { inject : ["title"]}, collection : { inject : ["list"]}, user : { inject : ["person"]}, sum : { inject : ["sum"]}, sum10 : { inject : ["sum10"]}}};
 js.Lib.onerror = null;
 Main.main()
