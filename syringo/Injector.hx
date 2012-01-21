@@ -25,10 +25,7 @@ class Injector {
   }
   
   public static function injectByList(object:Dynamic,container:Container,injected:Array<Array<String>>) {
-    for (el in injected) {
-      object.setField(el[0],container.get(el[1]));
-    }
-    
+    for (el in injected) object.setField(el[0],container.get(el[1]));
   }
   
    
