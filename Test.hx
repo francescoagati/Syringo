@@ -20,7 +20,6 @@ class TestClass {
   @inject("sum10")
   public var sum10:Float->Float;
   
-  
   public function new(container:syringo.Container) {
     syringo.Injector.injectByAnnotation(this,container);
   }
@@ -88,6 +87,14 @@ class Test extends haxe.unit.TestCase {
       assertEquals( container.get("list").length, 3 );
       container.get("list").push("ciao");
       assertEquals( container.get("list").length, 4 );
+    }
+    
+    public function testWithoutCache() {
+      
+      var list:Array<String>=container.getWithoutCache("list");
+      assertEquals( container.getWithoutCache("list").length, 3 );
+      container.getWithoutCache("list").push("ciao");
+      assertEquals( container.getWithoutCache("list").length, 3 );
     }
     
     public function testAnnotationValues() {

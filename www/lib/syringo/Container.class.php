@@ -23,6 +23,9 @@ class syringo_Container {
 		}
 		return $service->object;
 	}
+	public function getWithoutCache($name) {
+		return $this->services->get($name)->generator($this);
+	}
 	public function __call($m, $a) {
 		if(isset($this->$m) && is_callable($this->$m))
 			return call_user_func_array($this->$m, $a);

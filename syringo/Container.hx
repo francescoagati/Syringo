@@ -45,4 +45,8 @@ class Container {
     
   }
   
+  public function getWithoutCache(name:String):Dynamic {
+    return services.get(name).generator(this);
+  }
+  
 }
