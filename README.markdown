@@ -1,4 +1,4 @@
-#Syringo
+Syringo
 
 A dependeny injection inspired by [pimple](http://pimple.sensiolabs.org) and [syringe](https://github.com/leandrosilva/syringe).
 
