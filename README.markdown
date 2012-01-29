@@ -7,9 +7,9 @@ Use lambda function for define dependency and annotations for inject it.
 
 use annotation inject for define dependency
 
-#Getting Started
+##Getting Started
 
-##Define a class
+###Define a class
 ```
 
 class TestClass {
@@ -31,7 +31,7 @@ class TestClass {
 
 ```
 
-##Define an object container 
+###Define an object container 
 
 ```
         container=new syringo.Container();
@@ -55,7 +55,7 @@ class TestClass {
 ```
 
 
-##And inject container
+###And inject container
 
 `
   syringo.Injector.injectByAnnotation(this,container);
