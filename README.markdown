@@ -80,13 +80,13 @@ class TestClassAnnotations {
 
 with annotation
 
-`
+```
   syringo.Injector.injectByAnnotation(this,container);
-`
+```
 
 or by a list
 
-`
+```
   var object=new TestClassList();
       syringo.Injector.injectByList(object, container, [
         ['title','title'],
@@ -96,7 +96,7 @@ or by a list
         ['sum10','sum10']
       ]);
 
-`
+```
 
 see Test.hx for a full example
 tested on php,js and neko
