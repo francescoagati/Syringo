@@ -1,4 +1,4 @@
-#[http://francescoagati.github.com/Syringo/](Syringo)
+#[Syringo](http://francescoagati.github.com/Syringo)
 
 A dependeny injection for haxe inspired by [pimple](http://pimple.sensiolabs.org) and [syringe](https://github.com/leandrosilva/syringe).
 Use lambda function for define dependency and annotations for inject it.
