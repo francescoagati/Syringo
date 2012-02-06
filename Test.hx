@@ -12,9 +12,47 @@ class TestClassList{
   public var sum10:Float->Float;
   
   public function new() {}
-  
-  
-  
+    
+}
+
+class TestPropertyList{
+
+   public var x(getX,setX) : Int;
+   @inject("aNumber")
+   private var my_x : Int;
+
+   private function getX():Int {
+       return my_x;
+   }
+
+   private function setX( v : Int ):Int {
+      if( v >= 0 )
+         my_x = v;
+      return my_x;
+   }
+  public function new() {}
+    
+}
+
+class TestPropertyAnnotation{
+
+   public var x(getX,setX) : Int;
+   @inject("aNumber")
+   private var my_x : Int;
+
+   private function getX():Int {
+       return my_x;
+   }
+
+   private function setX( v : Int ):Int {
+      if( v >= 0 )
+         my_x = v;
+      return my_x;
+   }
+  public function new(container:syringo.Container) {
+    syringo.Injector.injectByAnnotation(this,container);
+  }
+    
 }
 
 class TestClassAnnotations {
@@ -64,6 +102,7 @@ class Test extends haxe.unit.TestCase {
           return list;
         });  
           
+        container.setObject("aNumber",999);
         container.set("person",function(cont):Person {
           return {
             name:"Mario",
@@ -124,6 +163,12 @@ class Test extends haxe.unit.TestCase {
       checkObjectTest(object);
     }
     
+    
+    public function testAnnotationPropertyValues() {
+      var object=new TestPropertyAnnotation(container);
+      assertEquals(object.x,999);
+    }
+    
     public function testListValues() {
       var object=new TestClassList();
       syringo.Injector.injectByList(object, container, [
@@ -138,5 +183,14 @@ class Test extends haxe.unit.TestCase {
      
     }
     
+    public function testListPropertyValues() {
+      var object=new TestPropertyList();
+      
+        syringo.Injector.injectByList(object, container, [
+          ['my_x','aNumber']
+        ]);
+      
+      assertEquals(object.x,999);
+    }
     
 }
