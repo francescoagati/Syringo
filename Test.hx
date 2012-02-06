@@ -18,7 +18,7 @@ class TestClassList{
 class TestPropertyList{
 
    public var x(getX,setX) : Int;
-   @inject("aNumber")
+   
    private var my_x : Int;
 
    private function getX():Int {
@@ -36,7 +36,9 @@ class TestPropertyList{
 
 class TestPropertyAnnotation{
 
+   
    public var x(getX,setX) : Int;
+   
    @inject("aNumber")
    private var my_x : Int;
 
